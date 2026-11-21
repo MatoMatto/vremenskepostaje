@@ -13,7 +13,7 @@ package vreme
 import "fmt"
 
 // Postaja predstavlja vremensko postajo z imenom, krajem in izmerjenimi temperaturami v °C.
-// Postajo ustvarimo s funkcijo `DodajPostajo`
+// Postajo ustvarimo s funkcijo [DodajPostajo]
 type Postaja struct {
 	ime     string
 	kraj    string
@@ -78,7 +78,7 @@ func statistika(postaje map[string]Postaja, oznaka string, stMeritev int) (najni
 	return najnizja, najvisja, povprecna, true
 }
 
-// IzpisMeritev izpiše oznake, imena in kraje vseh postaj ter njihove meritve
+// IzpisMeritev izpiše oznake, imena in kraje vseh postaj ter njihove meritve.
 func IzpisMeritev(postaje map[string]Postaja) {
 	fmt.Println("MERITVE:")
 
