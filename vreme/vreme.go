@@ -1,13 +1,27 @@
+// Package vreme simulira vremensko postajo, ki generira naključne vremenske podatke.
+//
+// Primer uporabe:
+//
+//	postaje := make(map[string]vreme.Postaja)
+//	vreme.DodajPostajo(postaje, "LJ01", "Ljubljana Bežigrad", "Ljubljana")
+//	vreme.DodajMeritev(postaje, "LJ01", 18.2, -50, 50)
+//	vreme.IzpisMeritev(postaje)
+//	vreme.IzpisPorocila(postaje, 3)
+
 package vreme
 
 import "fmt"
 
+// Postaja – vremenska postaja z imenom, krajem in izmerjenimi temperaturami v °C.
+// Postajo ustvarimo s funkcijo `DodajPostajo`
 type Postaja struct {
 	ime     string
 	kraj    string
 	meritve []float64
 }
 
+// DodajPostajo v slovar postaj doda novo postajo z dano oznako, imenom in krajem.
+// Če postaja z dano oznako že obstaja, izpiše obvestilo.
 func DodajPostajo(postaje map[string]Postaja, oznaka, ime, kraj string) {
 	if _, obstaja := postaje[oznaka]; obstaja {
 		fmt.Printf("Postaja %s že obstaja.\n", oznaka)
@@ -17,6 +31,7 @@ func DodajPostajo(postaje map[string]Postaja, oznaka, ime, kraj string) {
 	postaje[oznaka] = Postaja{ime: ime, kraj: kraj}
 }
 
+// DodajMeritev postaji z dano oznako doda meritev temperature, če velja minTemp <= temperatura <= maxTemp. Če oznaka postaje ne obstaja ali meritev ni veljavne, izpiše obvestilo.
 func DodajMeritev(postaje map[string]Postaja, oznaka string, temperatura, minTemp, maxTemp float64) {
 	postaja, obstaja := postaje[oznaka]
 
@@ -34,6 +49,8 @@ func DodajMeritev(postaje map[string]Postaja, oznaka string, temperatura, minTem
 	postaje[oznaka] = postaja
 }
 
+// statistika vrne najnižjo, najvišjo in povprečno temperaturo postaje z dano oznako.
+// Če postaja ne obstaja ali ima manj kot stMeritev meritev, vrne ok == false.
 func statistika(postaje map[string]Postaja, oznaka string, stMeritev int) (najnizja, najvisja, povprecna float64, ok bool) {
 	postaja, obstaja := postaje[oznaka]
 
@@ -61,6 +78,7 @@ func statistika(postaje map[string]Postaja, oznaka string, stMeritev int) (najni
 	return najnizja, najvisja, povprecna, true
 }
 
+// IzpisMeritev izpiše oznake, imena in kraje vseh postaj ter njihove meritve
 func IzpisMeritev(postaje map[string]Postaja) {
 	fmt.Println("MERITVE:")
 
@@ -69,6 +87,8 @@ func IzpisMeritev(postaje map[string]Postaja) {
 	}
 }
 
+// IzpisPorocila za vsako postajo izpiše ime ter njihovo najnižjo, najvišjo in povprečno temperaturo z opisom.
+// Če ima postaja manj kot stMeritev meritev, izpiše "premalo meritev".
 func IzpisPorocila(postaje map[string]Postaja, stMeritev int) {
 	for lb, postaja := range postaje {
 		fmt.Printf("%s: ", postaja.ime)
