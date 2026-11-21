@@ -1,4 +1,5 @@
-// Package vreme simulira vremensko postajo, ki generira naključne vremenske podatke.
+// Package vreme omogoča beleženje temperaturnih meritev vremenskih postaj
+// in izračun osnovne statistike meritev.
 //
 // Primer uporabe:
 //
@@ -7,12 +8,11 @@
 //	vreme.DodajMeritev(postaje, "LJ01", 18.2, -50, 50)
 //	vreme.IzpisMeritev(postaje)
 //	vreme.IzpisPorocila(postaje, 3)
-
 package vreme
 
 import "fmt"
 
-// Postaja – vremenska postaja z imenom, krajem in izmerjenimi temperaturami v °C.
+// Postaja predstavlja vremensko postajo z imenom, krajem in izmerjenimi temperaturami v °C.
 // Postajo ustvarimo s funkcijo `DodajPostajo`
 type Postaja struct {
 	ime     string
